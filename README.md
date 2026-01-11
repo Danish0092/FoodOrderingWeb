@@ -1,131 +1,151 @@
-# Haddi Fast Foods - Full Stack Project
+# 🍔 Haddi Fast Foods -- Full Stack Project
+# Members
+### FA23-BSE-044 (Danish Umer Saleem)
+### FA23-BSE-192 (Usman Jamil)
 
-## Team
-- FA23-BSE-044 - Danish Umer Saleem
-- FA23-BSE-192 - Usman Jamil
+Haddi Fast Foods is a **full‑stack food ordering application** built
+with **Node.js, Express, MongoDB, and Next.js**.\
+It includes a **customer website**, an **admin dashboard**, and a **server**.
 
-Haddi Fast Foods is a full-stack food ordering platform composed of a Node.js/Express API, a MongoDB database, a customer-facing Next.js application, and a separate Next.js admin dashboard. Customers can browse products, place orders, and receive email notifications, while administrators manage menu items and track orders through the dashboard.
 
----
 
-## Repository Layout
+------------------------------------------------------------------------
+
+Since the admin panel only supports login and not registration, you will need to create users manually in the database. To do this, you can use the registration API route that exists in your backend. Open Postman and make a POST request to:<br />
+
+http://localhost:5000/api/auth/register<br />
+
+
+In the body of the request, choose raw → JSON and provide the following fields:<br />
+
+{
+  "name": "Your User Name",
+  "email": "user@example.com",
+  "password": "yourpassword"
+}<br />
+
+
+Send the request, and the user will be created in the database. After that, you can use the admin panel login with the created email and password.<br />
+------------------------------------------------------------------------<br />
+
+## 🧩 Project Parts
+
+-   **server** → Node.js + Express + MongoDB (runs on port 5000)\
+-   **client** → Next.js (User website)\
+-   **admin** → Next.js (Admin panel)
+
+------------------------------------------------------------------------
+
+## 📦 Requirements
+
+Make sure you have installed:
+
+-   **Node.js** (v18 or above recommended)\
+-   **MongoDB** (running locally)\
+
+Check:
+
+    node -v
+    npm -v
+    mongo --version
+
+------------------------------------------------------------------------
+
+## 📁 Project Structure
+
+    project-root/
+     ├── server
+     ├── client
+     └── admin
+
+------------------------------------------------------------------------
+
+## ⚙️ Server Setup (Backend)
+
+``` bash
+cd server
+npm install
 ```
-FoodOrderingWeb/
-+-- admin/   # Next.js admin dashboard
-+-- client/  # Next.js customer website
-+-- server/  # Express API + MongoDB models + Brevo email service
-+-- README.md
+
+Create a **.env** file inside the `server` folder and paste the
+following:
+
+    on whatsapp
+
+Run server:
+
+``` bash
+npm run dev
 ```
 
----
+Server will start on: 👉 http://localhost:5000
 
-## Requirements
-- Node.js 18 or later (npm included)
-- MongoDB Community Server running locally (or a reachable Atlas cluster)
-- Git (for collaboration and deployment)
+------------------------------------------------------------------------
 
-Verify the tooling:
+## ✉️ Email Service (Brevo)
+
+This project uses **Brevo (formerly Sendinblue)** as the email service
+provider.
+
+Brevo is used to send: - Account-related emails\
+- Notifications\
+- Verification or system emails
+
+Brevo provides reliable  services that easily integrate with
+**NodeMailer** for sending emails from Node.js applications.
+
+------------------------------------------------------------------------
+
+## 🌐 Client Setup (User Website)
+
+Open a new terminal:
+
+``` bash
+cd client
+npm install
+npm run dev
 ```
-node -v
-npm -v
-mongo --version
-git --version
+
+Client runs on: 👉 http://localhost:3000
+
+Live version: 👉 https://haddi-fast-foods.vercel.app/
+
+------------------------------------------------------------------------
+
+## 🛠️ Admin Panel Setup
+
+Open another terminal:
+
+``` bash
+cd admin
+npm install
+npm run dev
 ```
 
----
+Admin panel runs on: 👉 http://localhost:3001 (or next available port)
 
-## Installation
-Install dependencies in each workspace:
-```bash
-cd server && npm install
-cd ../client && npm install
-cd ../admin && npm install
+------------------------------------------------------------------------
+
+## ✅ Final Result (Local)
+
+-   Server: http://localhost:5000\
+-   Client: http://localhost:3000\
+-   Admin: http://localhost:3001
+
+Make sure **MongoDB is running** before starting the server.
+
+------------------------------------------------------------------------
+
+## 🧪 Common Commands
+
+Install packages:
+
+``` bash
+npm install
 ```
 
-### Server environment variables
-Create `server/.env` and supply values that match your setup:
+Run project:
+
+``` bash
+npm run dev
 ```
-Port=5000
-MONGO_URI=mongodb://127.0.0.1:27017/haddi-fast-foods
-JWT_SECRET=replace-with-a-long-random-string
-SMTP_USER=your-brevo-smtp-username
-SMTP_PASS=your-brevo-smtp-password
-SENDER_EMAIL="Haddi Fast Foods <no-reply@yourdomain.com>"
-```
-> Never commit `.env` files. Maintain separate files per environment (local, staging, production).
-
----
-
-## Running the stack locally
-1. Start MongoDB (service, docker container, or Atlas cluster).
-2. API server:
-   ```bash
-   cd server
-   npm run dev
-   # http://localhost:5000
-   ```
-3. Customer website:
-   ```bash
-   cd client
-   npm run dev
-   # http://localhost:3000
-   ```
-4. Admin dashboard:
-   ```bash
-   cd admin
-   npm run dev
-   # http://localhost:3001 (Next.js will choose the next free port if needed)
-   ```
-
-Keep the three processes running simultaneously for a full local environment.
-
----
-
-## Creating admin users
-Registration is not exposed in the admin UI, so create users via the API:
-1. Open Postman (or curl/Insomnia).
-2. Send a `POST` to `http://localhost:5000/api/auth/register`.
-3. Choose **raw JSON** body:
-   ```json
-   {
-     "name": "Admin User",
-     "email": "admin@example.com",
-     "password": "strongpassword"
-   }
-   ```
-4. Submit the request. After a 201 response you can log in to the admin dashboard using the same credentials.
-
----
-
-## Email service (Brevo)
-The backend sends transactional emails (order updates, password resets, etc.) via Brevo (formerly Sendinblue) using NodeMailer.
-1. Generate SMTP credentials inside the Brevo dashboard.
-2. Store the username/password in `SMTP_USER` and `SMTP_PASS`.
-3. Set `SENDER_EMAIL` to a verified sender address.
-4. Restart the server whenever credentials change so the transporter reloads them.
-
----
-
-## Common commands
-| Location | Install deps | Start dev server | Production build |
-|----------|--------------|------------------|------------------|
-| server   | `npm install` | `npm run dev`    | `npm start` (after `npm run build` if defined) |
-| client   | `npm install` | `npm run dev`    | `npm run build && npm run start` |
-| admin    | `npm install` | `npm run dev`    | `npm run build && npm run start` |
-
----
-
-## Deployment notes
-- Public site: https://haddi-fast-foods.vercel.app/. Use `npm run build && npm run start` locally to mirror the hosted environment.
-- Ensure MongoDB is running before starting the API; connection failures abort the server start-up.
-- Before pushing changes run:
-  ```bash
-  git status
-  git add README.md
-  git commit -m "Improve README"
-  git push origin main
-  ```
-
----
-
-Need help? Create an issue or reach the maintainers listed above.
