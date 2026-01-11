@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neutral: #171717;
+  --color-gray: #262626;
+  --color-yellow: #f0b100;
+  --color-red: #fb2c36;
+  --color-green: #00c950;
+}
+
+
+
+
+@layer utilities {
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+body {
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+

@@ -1,0 +1,8 @@
+{
+  "/checkout/page": "app/checkout/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/reset-password/page": "app/reset-password/page.js",
+  "/store-locator/page": "app/store-locator/page.js"
+}
